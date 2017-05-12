@@ -1,0 +1,781 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="tinkerpop,graph," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="1. TraversalSource a generator of traversals for a particular graph, domain specific language (DSL), and execution engine.  Traversals in Gremlin are spawned from a TraversalSource. The GraphTraversal">
+<meta name="keywords" content="tinkerpop,graph">
+<meta property="og:type" content="article">
+<meta property="og:title" content="tinkerpop中对Traversal的理解">
+<meta property="og:url" content="http://zhaoliang.info/2017/03/23/tinkerpop中对Traversal的理解/index.html">
+<meta property="og:site_name" content="只取一瓢饮">
+<meta property="og:description" content="1. TraversalSource a generator of traversals for a particular graph, domain specific language (DSL), and execution engine.  Traversals in Gremlin are spawned from a TraversalSource. The GraphTraversal">
+<meta property="og:image" content="http://zhaoliang.info/img/image_test.png">
+<meta property="og:updated_time" content="2017-03-23T22:45:44.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="tinkerpop中对Traversal的理解">
+<meta name="twitter:description" content="1. TraversalSource a generator of traversals for a particular graph, domain specific language (DSL), and execution engine.  Traversals in Gremlin are spawned from a TraversalSource. The GraphTraversal">
+<meta name="twitter:image" content="http://zhaoliang.info/img/image_test.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zhaoliang.info/2017/03/23/tinkerpop中对Traversal的理解/"/>
+
+
+
+
+
+  <title>tinkerpop中对Traversal的理解 | 只取一瓢饮</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">只取一瓢饮</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">逃离春风一杯酒，江湖夜雨十年灯</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://zhaoliang.info/2017/03/23/tinkerpop中对Traversal的理解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zhaoliang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/6406175?v=3&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="只取一瓢饮">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">tinkerpop中对Traversal的理解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-23T18:21:05+08:00">
+                2017-03-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/tech/" itemprop="url" rel="index">
+                    <span itemprop="name">tech</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-TraversalSource"><a href="#1-TraversalSource" class="headerlink" title="1. TraversalSource"></a>1. TraversalSource</h2><p> a generator of traversals for a particular graph, domain <code>specific language (DSL)</code>, and execution engine.</p>
+<p> Traversals in Gremlin are spawned from a <code>TraversalSource</code>. The <code>GraphTraversalSource</code> is the typical “graph-oriented” DSL used throughout the documentation and will most likely be the most used DSL in a TinkerPop application.</p>
+<p> A <code>GraphTraversal&lt;S,E&gt;</code> is spawned from a <code>GraphTraversalSource</code>. It can also be spawned anonymously (i.e. empty) via <code>__</code>. A graph traversal is composed of an ordered list of steps. All the steps provided by GraphTraversal inherit from the more general forms diagrammed above. A list of all the steps (and their descriptions) are provided in the TinkerPop3 GraphTraversal JavaDoc. The following subsections will demonstrate the GraphTraversal steps using the Gremlin Console.</p>
+<p> TraversalSource是一个接口，<code>GraphTraversalSource</code>是其中一个实现，也是“图导向”的DSL。</p>
+<h2 id="2-Traversal"><a href="#2-Traversal" class="headerlink" title="2. Traversal"></a>2. Traversal</h2><p> <code>GraphTraversal&lt;S,E&gt;</code>由<code>GraphTraversalSource</code>大量产生，也可以由<code>__</code>匿名产生。一个图遍历是由一个由step组成的有序列表构成。<br> 在最一般的情况下，遍历就是<code>Traversal&lt;S,E&gt;</code>，它实现了<code>Iterator&lt;E&gt;</code>接口，其中<code>S</code>代表开始，<code>E</code>代表结束。一个遍历由以下四种组件组成：</p>
+<ol>
+<li><code>Step&lt;S,E&gt;</code>：将<code>S</code>产生<code>E</code>的一个独立功能。一个遍历有多个step级联组成。（Steps are chained within a traversal.）</li>
+<li><code>TraversalStrategy</code>：改变遍历执行的拦截方法。（例如：查询重写）。</li>
+<li><code>TraversalSideEffects</code>：用于存储关于遍历的全局信息的键值对。</li>
+<li><p><code>Traverser&lt;T&gt;</code>：在当前的<code>Traversal</code>中传播的对象，<code>T</code>代表处理的对象。</p>
+<p><code>GraphTraversal&lt;S,E&gt;</code>提供了一个图遍历的经典概念，它继承的<code>Traversal&lt;S,E&gt;</code>。提供了通过点、边等图术语对图数据的解释。</p>
+<blockquote>
+<p> The underlying Step implementations provided by TinkerPop should encompass most of the functionality required by a DSL author. It is important that DSL authors leverage the provided steps as then the common optimization and decoration strategies can reason on the underlying traversal sequence. If new steps are introduced, then common traversal strategies may not function properly.</p>
+</blockquote>
+</li>
+</ol>
+<p> <code>Traverser&lt;T&gt;</code>实现了<code>Iterator&lt;E&gt;</code>、<code>Serializable</code>、<code>Cloneable</code>。说明能迭代，是对<code>Step</code>迭代。能序列化，能复制。<br> <code>Traverser&lt;T&gt;</code>接口中包含有<code>Admin&lt;S, E&gt;</code>接口，此接口提供了一下一些接口。</p>
+<a id="more"></a>
+<h2 id="3-Traverser"><a href="#3-Traverser" class="headerlink" title="3. Traverser"></a>3. Traverser</h2><p><code>Traverser&lt;T&gt;</code>：在当前的<code>Traversal</code>中传播的对象，<code>T</code>代表处理的对象。</p>
+<h2 id="4-Step"><a href="#4-Step" class="headerlink" title="4. Step"></a>4. Step</h2><p>以下就是一个<code>Traversal</code>:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">g.V(1).as(&apos;a&apos;).out(&apos;created&apos;).in(&apos;created&apos;).where(neq(&apos;a&apos;)).addE(&apos;co-developer&apos;).from(&apos;a&apos;).property(&apos;year&apos;,2009)</div></pre></td></tr></table></figure></p>
+<p>其中<code>V(1)</code>、<code>as(&#39;a&#39;)</code>、<code>out(&#39;created&#39;)</code>、<code>in(&#39;created&#39;)</code>、<br><code>where(neq(&#39;a&#39;))</code>、<code>addE(&#39;co-developer&#39;)</code>、<code>from(&#39;a&#39;)</code>、<br><code>property(&#39;year&#39;,2009)</code>、都是step。所以Traversal是一个由多个step组成的链。</p>
+<p>step 分为以下5中类型：</p>
+<p><img src="/img/image_test.png" alt="step"></p>
+<h2 id="5-DefaultGraphTraversal"><a href="#5-DefaultGraphTraversal" class="headerlink" title="5. DefaultGraphTraversal"></a>5. DefaultGraphTraversal</h2><p><code>DefaultGraphTraversal</code>继承<code>DefaultTraversal</code>，并实现了<code>GraphTraversal.Admin&lt;S, E&gt;</code>接口。<code>DefaultTraversal</code>实现<code>Traversal</code>接口。<br>一个<code>Traversal</code>中包含的所有step都存放在<code>DefaultTraversal</code>中的<code>protected List&lt;Step&gt; steps = new ArrayList&lt;&gt;();</code>中，并提供了<code>addStep(final int index, final Step&lt;?, ?&gt; step)</code>和<code>removeStep(final int index)</code>方法。这两个方法都被<code>Traversal</code>中的<code>addStep(final Step&lt;?, E2&gt; step)</code>封装。每一个step中都维护一个id，此id由<code>DefaultTraversal</code>中的<code>stepPosition</code>来维护，它提供了<code>nextXId()</code>方法。<br><code>TraverserGenerator generator</code>是产生各种Traverser的生产器，系统还提供了<code>DefaultTraverserGeneratorFactory</code>，能根据<code>Set&lt;TraverserRequirement&gt; requirements</code>来产生相应的<code>TraverserGenerator</code>，采用工厂模式。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/tinkerpop/" rel="tag"># tinkerpop</a>
+          
+            <a href="/tags/graph/" rel="tag"># graph</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/23/couchdb集群搭建/" rel="next" title="couchdb集群搭建">
+                <i class="fa fa-chevron-left"></i> couchdb集群搭建
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/24/hashCode理解/" rel="prev" title="hashCode理解">
+                hashCode理解 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars0.githubusercontent.com/u/6406175?v=3&s=460"
+               alt="zhaoliang" />
+          <p class="site-author-name" itemprop="name">zhaoliang</p>
+           
+              <p class="site-description motion-element" itemprop="description">逃离春风一杯酒，江湖夜雨十年灯</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/weston100721" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/6041051862" target="_blank" title="weibo">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-TraversalSource"><span class="nav-number">1.</span> <span class="nav-text">1. TraversalSource</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Traversal"><span class="nav-number">2.</span> <span class="nav-text">2. Traversal</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Traverser"><span class="nav-number">3.</span> <span class="nav-text">3. Traverser</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Step"><span class="nav-number">4.</span> <span class="nav-text">4. Step</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-DefaultGraphTraversal"><span class="nav-number">5.</span> <span class="nav-text">5. DefaultGraphTraversal</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhaoliang</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
