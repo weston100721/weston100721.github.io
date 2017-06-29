@@ -1,15 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[JDK之java.util.Objects]]></title>
+    <url>%2F2017%2F06%2F30%2FJDK%E4%B9%8Bjava-util-Objects%2F</url>
+    <content type="text"><![CDATA[在编码时我们经常会遇到是否为空的判断，例如：if (xxx == null) { ... } else { ... }等，许多人会用一些第三方的工具包如commons-lang，guava中的工具类来替代这种冗余的写法，殊不知，JDK中就有提供对null处理的很好的工具类 java.util.Objects。在我看来， 在相同的工作量和差不多的性能的情况下，优先考虑JDK中自带的类。 java.util.Objects简介此类提供了一些操作对象的静态工具方法。包括空指针安全和空指针容忍的工具方法，用于计算对象哈希值，为对象返回字符串及比较两个对象。 对于null的处理对于null的处理，提供了以下5个方法，能满足你大部分对null的判断和处理。 12345678910111213141516171819202122232425public static &lt;T&gt; T requireNonNull(T obj) &#123; if (obj == null) throw new NullPointerException(); return obj; &#125; public static &lt;T&gt; T requireNonNull(T obj, String message) &#123; if (obj == null) throw new NullPointerException(message); return obj; &#125; public static boolean isNull(Object obj) &#123; return obj == null; &#125; public static boolean nonNull(Object obj) &#123; return obj != null; &#125; public static &lt;T&gt; T requireNonNull(T obj, Supplier&lt;String&gt; messageSupplier) &#123; if (obj == null) throw new NullPointerException(messageSupplier.get()); return obj; &#125; 代码值得学习之处final类定义Objects为final类：public final class Objects{ ... }。如果你认为一个类包括对某种事物处理的全部方法并不允许被继承，那就应该使用。 不允许构建实例对象123private Objects() &#123; throw new AssertionError("No java.util.Objects instances for you!");&#125; 所以你以后写一个工具类，并不允许实例，就可以就构造方法设置私有，并在构造方法中抛出异常。按上述代码依葫芦画瓢就是了。 泛型多在自己写的代码中使用泛型，增加代码的通用性，提高被重复使用的使用率。类中的例子参考：12345public static &lt;T&gt; T requireNonNull(T obj) &#123; if (obj == null) throw new NullPointerException(); return obj;&#125;]]></content>
+      <categories>
+        <category>tech</category>
+      </categories>
+      <tags>
+        <tag>JDK源码</tag>
+        <tag>java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[JDK源码之UUID]]></title>
     <url>%2F2017%2F06%2F29%2FJDK%E6%BA%90%E7%A0%81%E4%B9%8BUUID%2F</url>
-    <content type="text"><![CDATA[写在前面UUID(univerally unique identifier),通用唯一识别码，最开始使用于阿波罗网络计算系统，软件开放组织用于DCE(distributed computing environment),后来微软用于windows平台上。UUID为固定长度128位，与其他替代品相比，这已经算是相当小的。这便于排序，存储和分配等。而其他重要的应用，则有 Linux ext2/ext3 档案系统、LUKS 加密分割区、GNOME、KDE、Mac OS X 等等。 UUID结构组成 当前日期和时间。 时钟序列。 全局唯一的IEEE机器识别号，如果有网卡，从网卡MAC地址获得，没有网卡以其他方式获得 UUID time-low “-“ time-mid “-“ time-high-and-version “-“ clock-seq-and-reserved clock-seq-low “-“ node time-low 4hexOctet time-mid 2hexOctet time-high-and-version 2hexOctet clock-seq-and-reserved hexOctet clock-seq-low hexOctet node 6hexOctet hexOctet hexDigit hexDigit hexDigit 0~9,’a’~’f’,’A’~’F’ 举个例子：f81d4fae-7dec-11d0-a765-00a0c91e6bf6 12345678910110 1 2 3 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+| time_low |+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+| time_mid | time_hi_and_version |+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+|clk_seq_hi_res | clk_seq_low | node (0-1) |+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+| node (2-5) |+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ versionVersion 1：基于时间的UUID(The time-based version)基于时间的UUID通过计算当前时间戳、随机数和机器MAC地址得到。由于在算法中使用了MAC地址，这个版本的UUID可以保证在全球范围的唯一性。但与此同时，使用MAC地址会带来安全性问题，这就是这个版本UUID受到批评的地方。如果应用只是在局域网中使用，也可以使用退化的算法，以IP地址来代替MAC地址－－Java的UUID往往是这样实现的（当然也考虑了获取MAC的难度）。 Version 2：DCE安全的UUID(DCE Security version, with embedded POSIX UIDs.)分布式计算环境（Distributed Computing Environment)安全的UUID和基于时间的UUID算法相同，但会把时间戳的前4位置换为POSIX的UID或GID。这个版本的UUID在实际中较少用到。 Version 3：基于名字的UUID（MD5）基于名字的UUID通过计算名字和名字空间的MD5散列值得到。这个版本的UUID保证了：相同名字空间中不同名字生成的UUID的唯一性；不同名字空间中的UUID的唯一性；相同名字空间中相同名字的UUID重复生成是相同的。 Version 4：随机UUID根据随机数，或者伪随机数生成UUID。这种UUID产生重复的概率是可以计算出来的，但随机的东西就像是买彩票：你指望它发财是不可能的，但狗屎运通常会在不经意中到来。 Version 5：基于名字的UUID（SHA1和版本3的UUID算法类似，只是散列值计算使用SHA1（Secure Hash Algorithm 1）算法。 java.util.UUID 表示通用唯一标识符 (UUID) 的类。 UUID 表示一个 128 位的值。这些通用标识符具有不同的变体。此类的方法用于操作 Leach-Salz 变体，不过构造方法允许创建任何 UUID 变体 变体 2 (Leach-Salz) UUID 的布局如下： long 型数据的最高有效位由以下无符号字段组成： 0xFFFFFFFF00000000 time_low 0x00000000FFFF0000 time_mid 0x000000000000F000 version 0x0000000000000FFF time_hi long 型数据的最低有效位由以下无符号字段组成： 0xC000000000000000 variant 0x3FFF000000000000 clock_seq 0x0000FFFFFFFFFFFF node 参考文献 UUID rfc4122]]></content>
+    <content type="text"><![CDATA[UUID(univerally unique identifier),通用唯一识别码，最开始使用于阿波罗网络计算系统，软件开放组织用于DCE(distributed computing environment),后来微软用于windows平台上。UUID为固定长度128位，与其他替代品相比，这已经算是相当小的。这便于排序，存储和分配等。而其他重要的应用，则有 Linux ext2/ext3 档案系统、LUKS 加密分割区、GNOME、KDE、Mac OS X 等等。 UUID结构组成 当前日期和时间。 时钟序列。 全局唯一的IEEE机器识别号，如果有网卡，从网卡MAC地址获得，没有网卡以其他方式获得 UUID time-low “-“ time-mid “-“ time-high-and-version “-“ clock-seq-and-reserved clock-seq-low “-“ node time-low 4hexOctet time-mid 2hexOctet time-high-and-version 2hexOctet clock-seq-and-reserved hexOctet clock-seq-low hexOctet node 6hexOctet hexOctet hexDigit hexDigit hexDigit 0~9,’a’~’f’,’A’~’F’ 举个例子：f81d4fae-7dec-11d0-a765-00a0c91e6bf6 12345678910110 1 2 3 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+| time_low |+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+| time_mid | time_hi_and_version |+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+|clk_seq_hi_res | clk_seq_low | node (0-1) |+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+| node (2-5) |+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ versionVersion 1：基于时间的UUID(The time-based version)基于时间的UUID通过计算当前时间戳、随机数和机器MAC地址得到。由于在算法中使用了MAC地址，这个版本的UUID可以保证在全球范围的唯一性。但与此同时，使用MAC地址会带来安全性问题，这就是这个版本UUID受到批评的地方。如果应用只是在局域网中使用，也可以使用退化的算法，以IP地址来代替MAC地址－－Java的UUID往往是这样实现的（当然也考虑了获取MAC的难度）。 Version 2：DCE安全的UUID(DCE Security version, with embedded POSIX UIDs.)分布式计算环境（Distributed Computing Environment)安全的UUID和基于时间的UUID算法相同，但会把时间戳的前4位置换为POSIX的UID或GID。这个版本的UUID在实际中较少用到。 Version 3：基于名字的UUID（MD5）基于名字的UUID通过计算名字和名字空间的MD5散列值得到。这个版本的UUID保证了：相同名字空间中不同名字生成的UUID的唯一性；不同名字空间中的UUID的唯一性；相同名字空间中相同名字的UUID重复生成是相同的。 Version 4：随机UUID根据随机数，或者伪随机数生成UUID。这种UUID产生重复的概率是可以计算出来的，但随机的东西就像是买彩票：你指望它发财是不可能的，但狗屎运通常会在不经意中到来。 Version 5：基于名字的UUID（SHA1和版本3的UUID算法类似，只是散列值计算使用SHA1（Secure Hash Algorithm 1）算法。 java.util.UUID 表示通用唯一标识符 (UUID) 的类。 UUID 表示一个 128 位的值。这些通用标识符具有不同的变体。此类的方法用于操作 Leach-Salz 变体，不过构造方法允许创建任何 UUID 变体 变体 2 (Leach-Salz) UUID 的布局如下： long 型数据的最高有效位由以下无符号字段组成： 0xFFFFFFFF00000000 time_low 0x00000000FFFF0000 time_mid 0x000000000000F000 version 0x0000000000000FFF time_hi long 型数据的最低有效位由以下无符号字段组成： 0xC000000000000000 variant 0x3FFF000000000000 clock_seq 0x0000FFFFFFFFFFFF node 参考文献 UUID rfc4122]]></content>
       <categories>
         <category>tech</category>
       </categories>
       <tags>
         <tag>JDK源码</tag>
         <tag>UUID</tag>
+        <tag>java</tag>
       </tags>
   </entry>
   <entry>
@@ -45,8 +58,8 @@
         <category>tech</category>
       </categories>
       <tags>
-        <tag>常用命令</tag>
         <tag>linux</tag>
+        <tag>常用命令</tag>
       </tags>
   </entry>
   <entry>
