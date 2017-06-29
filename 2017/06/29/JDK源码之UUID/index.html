@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="JDK源码,UUID," />
 
 
 
@@ -90,15 +90,17 @@
 
 
 
-<meta name="description" content="桃李春风一杯酒，江湖夜雨十年灯">
-<meta property="og:type" content="website">
-<meta property="og:title" content="只取一瓢饮">
-<meta property="og:url" content="http://zhaoliang.info/categories/tech/index.html">
+<meta name="description" content="写在前面UUID(univerally unique identifier),通用唯一识别码，最开始使用于阿波罗网络计算系统，软件开放组织用于DCE(distributed computing environment),后来微软用于windows平台上。UUID为固定长度128位，与其他替代品相比，这已经算是相当小的。这便于排序，存储和分配等。而其他重要的应用，则有 Linux ext2/ext3">
+<meta name="keywords" content="JDK源码,UUID">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JDK源码之UUID">
+<meta property="og:url" content="http://zhaoliang.info/2017/06/29/JDK源码之UUID/index.html">
 <meta property="og:site_name" content="只取一瓢饮">
-<meta property="og:description" content="桃李春风一杯酒，江湖夜雨十年灯">
+<meta property="og:description" content="写在前面UUID(univerally unique identifier),通用唯一识别码，最开始使用于阿波罗网络计算系统，软件开放组织用于DCE(distributed computing environment),后来微软用于windows平台上。UUID为固定长度128位，与其他替代品相比，这已经算是相当小的。这便于排序，存储和分配等。而其他重要的应用，则有 Linux ext2/ext3">
+<meta property="og:updated_time" content="2017-06-29T14:52:26.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="只取一瓢饮">
-<meta name="twitter:description" content="桃李春风一杯酒，江湖夜雨十年灯">
+<meta name="twitter:title" content="JDK源码之UUID">
+<meta name="twitter:description" content="写在前面UUID(univerally unique identifier),通用唯一识别码，最开始使用于阿波罗网络计算系统，软件开放组织用于DCE(distributed computing environment),后来微软用于windows平台上。UUID为固定长度128位，与其他替代品相比，这已经算是相当小的。这便于排序，存储和分配等。而其他重要的应用，则有 Linux ext2/ext3">
 
 
 
@@ -126,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://zhaoliang.info/categories/tech/"/>
+  <link rel="canonical" href="http://zhaoliang.info/2017/06/29/JDK源码之UUID/"/>
 
 
 
 
 
-  <title>分类: tech | 只取一瓢饮</title>
+  <title>JDK源码之UUID | 只取一瓢饮</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -167,7 +169,7 @@
     
   
 
-  <div class="container sidebar-position-left  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -305,213 +307,290 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h1>tech<small>分类</small>
-      </h1>
-    </div>
-
+  <div id="posts" class="posts-expand">
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/06/29/JDK源码之UUID/" itemprop="url">
-              
-                <span itemprop="name">JDK源码之UUID</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-29T10:06:44+08:00"
-              content="2017-06-29" >
-          06-29
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/04/05/vagrant配置/" itemprop="url">
-              
-                <span itemprop="name">vagrant配置</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-04-05T21:40:44+08:00"
-              content="2017-04-05" >
-          04-05
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/03/28/ansible简记/" itemprop="url">
-              
-                <span itemprop="name">ansible简记</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-03-28T21:03:32+08:00"
-              content="2017-03-28" >
-          03-28
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/03/28/linux常用命令/" itemprop="url">
-              
-                <span itemprop="name">linux常用命令</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-03-28T13:52:19+08:00"
-              content="2017-03-28" >
-          03-28
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/03/24/hashCode理解/" itemprop="url">
-              
-                <span itemprop="name">hashCode理解</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-03-24T20:45:44+08:00"
-              content="2017-03-24" >
-          03-24
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/03/23/tinkerpop中对Traversal的理解/" itemprop="url">
-              
-                <span itemprop="name">tinkerpop中对Traversal的理解</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-03-23T18:21:05+08:00"
-              content="2017-03-23" >
-          03-23
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/03/23/couchdb集群搭建/" itemprop="url">
-              
-                <span itemprop="name">couchdb集群搭建</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-03-23T16:48:03+08:00"
-              content="2017-03-23" >
-          03-23
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-  </section>
 
   
 
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://zhaoliang.info/2017/06/29/JDK源码之UUID/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zhaoliang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/6406175?v=3&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="只取一瓢饮">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JDK源码之UUID</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-29T10:06:44+08:00">
+                2017-06-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/tech/" itemprop="url" rel="index">
+                    <span itemprop="name">tech</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/06/29/JDK源码之UUID/" class="leancloud_visitors" data-flag-title="JDK源码之UUID">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>UUID(univerally unique identifier),通用唯一识别码，最开始使用于阿波罗网络计算系统，软件开放组织用于DCE(distributed computing environment),后来微软用于windows平台上。UUID为固定长度128位，与其他替代品相比，这已经算是相当小的。这便于排序，存储和分配等。而其他重要的应用，则有 Linux ext2/ext3 档案系统、LUKS 加密分割区、GNOME、KDE、Mac OS X 等等。</p>
+<a id="more"></a>
+<h1 id="UUID结构组成"><a href="#UUID结构组成" class="headerlink" title="UUID结构组成"></a>UUID结构组成</h1><ol>
+<li>当前日期和时间。</li>
+<li>时钟序列。</li>
+<li>全局唯一的IEEE机器识别号，如果有网卡，从网卡MAC地址获得，没有网卡以其他方式获得</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>UUID</th>
+<th>time-low “-“ time-mid “-“ time-high-and-version “-“ clock-seq-and-reserved clock-seq-low “-“ node</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>time-low</td>
+<td>4hexOctet</td>
+</tr>
+<tr>
+<td>time-mid</td>
+<td>2hexOctet</td>
+</tr>
+<tr>
+<td>time-high-and-version</td>
+<td>2hexOctet</td>
+</tr>
+<tr>
+<td>clock-seq-and-reserved</td>
+<td>hexOctet</td>
+</tr>
+<tr>
+<td>clock-seq-low</td>
+<td>hexOctet</td>
+</tr>
+<tr>
+<td>node</td>
+<td>6hexOctet</td>
+</tr>
+<tr>
+<td>hexOctet</td>
+<td>hexDigit hexDigit</td>
+</tr>
+<tr>
+<td>hexDigit</td>
+<td>0~9,’a’~’f’,’A’~’F’</td>
+</tr>
+</tbody>
+</table>
+<p>举个例子：<strong>f81d4fae-7dec-11d0-a765-00a0c91e6bf6</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">0                   1                   2                   3</div><div class="line"> 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1</div><div class="line">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</div><div class="line">|                          time_low                             |</div><div class="line">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</div><div class="line">|       time_mid                |         time_hi_and_version   |</div><div class="line">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</div><div class="line">|clk_seq_hi_res |  clk_seq_low  |         node (0-1)            |</div><div class="line">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</div><div class="line">|                         node (2-5)                            |</div><div class="line">+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</div></pre></td></tr></table></figure>
+<h2 id="version"><a href="#version" class="headerlink" title="version"></a>version</h2><p><strong>Version 1：基于时间的UUID(The time-based version)</strong><br>基于时间的UUID通过计算当前时间戳、随机数和机器MAC地址得到。由于在算法中使用了MAC地址，这个版本的UUID可以保证在全球范围的唯一性。但与此同时，使用MAC地址会带来安全性问题，这就是这个版本UUID受到批评的地方。如果应用只是在局域网中使用，也可以使用退化的算法，以IP地址来代替MAC地址－－Java的UUID往往是这样实现的（当然也考虑了获取MAC的难度）。</p>
+<p><strong>Version 2：DCE安全的UUID(DCE Security version, with embedded POSIX UIDs.)</strong><br>分布式计算环境（Distributed Computing Environment)安全的UUID和基于时间的UUID算法相同，但会把时间戳的前4位置换为POSIX的UID或GID。这个版本的UUID在实际中较少用到。</p>
+<p><strong>Version 3：基于名字的UUID（MD5）</strong><br>基于名字的UUID通过计算名字和名字空间的MD5散列值得到。这个版本的UUID保证了：相同名字空间中不同名字生成的UUID的唯一性；不同名字空间中的UUID的唯一性；相同名字空间中相同名字的UUID重复生成是相同的。</p>
+<p><strong>Version 4：随机UUID</strong><br>根据随机数，或者伪随机数生成UUID。这种UUID产生重复的概率是可以计算出来的，但随机的东西就像是买彩票：你指望它发财是不可能的，但狗屎运通常会在不经意中到来。</p>
+<p><strong>Version 5：基于名字的UUID（SHA1</strong><br>和版本3的UUID算法类似，只是散列值计算使用SHA1（Secure Hash Algorithm 1）算法。</p>
+<h1 id="java-util-UUID"><a href="#java-util-UUID" class="headerlink" title="java.util.UUID"></a>java.util.UUID</h1><blockquote>
+<p>表示通用唯一标识符 (UUID) 的类。 UUID 表示一个 128 位的值。这些通用标识符具有不同的变体。此类的方法用于操作 Leach-Salz 变体，不过构造方法允许创建任何 UUID 变体</p>
+</blockquote>
+<ol>
+<li>变体 2 (Leach-Salz) UUID 的布局如下：</li>
+</ol>
+<p><strong>long 型数据的最高有效位由以下无符号字段组成：</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">0xFFFFFFFF00000000</th>
+<th style="text-align:center">time_low</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"> 0x00000000FFFF0000</td>
+<td style="text-align:center">time_mid</td>
+</tr>
+<tr>
+<td style="text-align:center"> 0x000000000000F000</td>
+<td style="text-align:center">version</td>
+</tr>
+<tr>
+<td style="text-align:center"> 0x0000000000000FFF</td>
+<td style="text-align:center">time_hi</td>
+</tr>
+</tbody>
+</table>
+<p><strong>long 型数据的最低有效位由以下无符号字段组成：</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">0xC000000000000000</th>
+<th style="text-align:center">variant</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"> 0x3FFF000000000000</td>
+<td style="text-align:center">clock_seq</td>
+</tr>
+<tr>
+<td style="text-align:center"> 0x0000FFFFFFFFFFFF</td>
+<td style="text-align:center">node</td>
+</tr>
+</tbody>
+</table>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ol>
+<li><a href="http://www.apihome.cn/api/java/UUID.html" target="_blank" rel="external">UUID</a></li>
+<li><a href="https://tools.ietf.org/html/rfc4122" target="_blank" rel="external">rfc4122</a></li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JDK源码/" rel="tag"># JDK源码</a>
+          
+            <a href="/tags/UUID/" rel="tag"># UUID</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/05/vagrant配置/" rel="next" title="vagrant配置">
+                <i class="fa fa-chevron-left"></i> vagrant配置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -519,6 +598,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -538,8 +621,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="https://avatars0.githubusercontent.com/u/6406175?v=3&s=460"
@@ -621,6 +713,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UUID结构组成"><span class="nav-number">2.</span> <span class="nav-text">UUID结构组成</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#version"><span class="nav-number">2.1.</span> <span class="nav-text">version</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#java-util-UUID"><span class="nav-number">3.</span> <span class="nav-text">java.util.UUID</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">4.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -723,6 +831,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
 
   
 
