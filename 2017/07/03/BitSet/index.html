@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="JDK源码,java,BitSet," />
 
 
 
@@ -90,15 +90,17 @@
 
 
 
-<meta name="description" content="桃李春风一杯酒，江湖夜雨十年灯">
-<meta property="og:type" content="website">
-<meta property="og:title" content="只取一瓢饮">
-<meta property="og:url" content="http://zhaoliang.info/tags/虚拟机/index.html">
+<meta name="description" content="听说百度曾经出过这样一道题：  有一千万个随机数，每个随机数的范围在0到1亿之间，现在要求写出一种算法，将1到1亿之间没有在随机数中的数求出来？  我们先不管百度有没有出过这样的面试题，反正我是在网上看到的。对于这个问题，如果不考虑性能和内存问题，那逻辑非常简单。反之，就需要用到今天介绍的java.util.BitSet。">
+<meta name="keywords" content="JDK源码,java,BitSet">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BitSet">
+<meta property="og:url" content="http://zhaoliang.info/2017/07/03/BitSet/index.html">
 <meta property="og:site_name" content="只取一瓢饮">
-<meta property="og:description" content="桃李春风一杯酒，江湖夜雨十年灯">
+<meta property="og:description" content="听说百度曾经出过这样一道题：  有一千万个随机数，每个随机数的范围在0到1亿之间，现在要求写出一种算法，将1到1亿之间没有在随机数中的数求出来？  我们先不管百度有没有出过这样的面试题，反正我是在网上看到的。对于这个问题，如果不考虑性能和内存问题，那逻辑非常简单。反之，就需要用到今天介绍的java.util.BitSet。">
+<meta property="og:updated_time" content="2017-07-03T15:14:48.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="只取一瓢饮">
-<meta name="twitter:description" content="桃李春风一杯酒，江湖夜雨十年灯">
+<meta name="twitter:title" content="BitSet">
+<meta name="twitter:description" content="听说百度曾经出过这样一道题：  有一千万个随机数，每个随机数的范围在0到1亿之间，现在要求写出一种算法，将1到1亿之间没有在随机数中的数求出来？  我们先不管百度有没有出过这样的面试题，反正我是在网上看到的。对于这个问题，如果不考虑性能和内存问题，那逻辑非常简单。反之，就需要用到今天介绍的java.util.BitSet。">
 
 
 
@@ -126,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://zhaoliang.info/tags/虚拟机/"/>
+  <link rel="canonical" href="http://zhaoliang.info/2017/07/03/BitSet/"/>
 
 
 
 
 
-  <title>标签: 虚拟机 | 只取一瓢饮</title>
+  <title>BitSet | 只取一瓢饮</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -167,7 +169,7 @@
     
   
 
-  <div class="container sidebar-position-left  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -305,44 +307,204 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h1>虚拟机<small>标签</small>
-      </h1>
-    </div>
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://zhaoliang.info/2017/07/03/BitSet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zhaoliang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/6406175?v=3&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="只取一瓢饮">
+    </span>
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">BitSet</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-03T21:12:05+08:00">
+                2017-07-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/tech/" itemprop="url" rel="index">
+                    <span itemprop="name">tech</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/07/03/BitSet/" class="leancloud_visitors" data-flag-title="BitSet">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
       
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+      
+        <p>听说百度曾经出过这样一道题：</p>
+<blockquote>
+<p>有一千万个随机数，每个随机数的范围在0到1亿之间，现在要求写出一种算法，将1到1亿之间没有在随机数中的数求出来？</p>
+</blockquote>
+<p>我们先不管百度有没有出过这样的面试题，反正我是在网上看到的。对于这个问题，如果不考虑性能和内存问题，那逻辑非常简单。反之，就需要用到今天介绍的<code>java.util.BitSet</code>。</p>
+<a id="more"></a>
+<h1 id="BitSet-介绍"><a href="#BitSet-介绍" class="headerlink" title="BitSet 介绍"></a>BitSet 介绍</h1><p>该类实现了一个按需增长的位向量。每个<code>bit</code>值为一个布尔值(true/false)，用非负的整数将BitSet的每个<code>bit</code>位编入索引。可以对每个编入索引的位进行测试、设置或者清除。通过逻辑与、逻辑或和逻辑异或操作，可以使用一个BitSet修改另一个BitSet的内容。BitSet不是线程安全的。</p>
+<h1 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h1><p>先用伪代码来举个例子：<br>假设有这样一种类型<code>bit</code>，那么8个<code>bit</code>占用一个字节。现在我们要存储<code>(1, 4, 5，7)</code>这四个<code>int</code>类型的数，那么我们需要 <code>4 * 8</code>字节。但是可以<code>bit</code>的方式，伪代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">bit[] store = <span class="keyword">new</span> bit[<span class="number">7</span>+<span class="number">1</span>]; <span class="comment">// (1)</span></div><div class="line">bit[<span class="number">1</span>] = <span class="number">1</span>;</div><div class="line">bit[<span class="number">4</span>] = <span class="number">1</span>;</div><div class="line">bit[<span class="number">5</span>] = <span class="number">1</span>;</div><div class="line">bit[<span class="number">7</span>] = <span class="number">1</span>;</div><div class="line"></div><div class="line"><span class="comment">// 获取</span></div><div class="line"><span class="function"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title">getResult</span><span class="params">()</span></span>&#123;</div><div class="line">  List&lt;Integer&gt; result = <span class="keyword">new</span> ArrayList();</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= store.length; i++)&#123;</div><div class="line">    <span class="keyword">if</span>(bit[i] == <span class="number">1</span>)&#123;</div><div class="line">      result.add(i);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> result;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>上面步骤(1)中存储四个数仅用了一个字节，使用的内存是原来 <code>1/32</code>。然而，在Java语言中并没有这种类型，但是<code>java.util.BitSet</code>却使用<code>long</code>型完成了同样的事情。</p>
+<h1 id="BitSet源码分析"><a href="#BitSet源码分析" class="headerlink" title="BitSet源码分析"></a>BitSet源码分析</h1><p><code>BitSet</code>真正存储数据的地方：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * The internal field corresponding to the serialField "bits".</div><div class="line"> */</div><div class="line"><span class="keyword">private</span> <span class="keyword">long</span>[] words;</div></pre></td></tr></table></figure></p>
+<p>一个long型的数据占八个字节，共64位。所以当<code>long[] words</code>的长度为1时，只能存储的最大数为63；为2时，只能存储的最大数为127；以此类推。所以你就能明白以下代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">int</span> ADDRESS_BITS_PER_WORD = <span class="number">6</span>;</div><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">int</span> BITS_PER_WORD = <span class="number">1</span> &lt;&lt; ADDRESS_BITS_PER_WORD;</div><div class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">int</span> BIT_INDEX_MASK = BITS_PER_WORD - <span class="number">1</span>;</div></pre></td></tr></table></figure></p>
+<p>创建一个BitSet的默认大小为一个<code>long[] words = new long[1]</code>，也就是说只能存0到63。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * Creates a new bit set. All bits are initially &#123;<span class="doctag">@code</span> false&#125;.</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">BitSet</span><span class="params">()</span> </span>&#123;</div><div class="line">    initWords(<span class="number">64</span>);</div><div class="line">    sizeIsSticky = <span class="keyword">false</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>当然如果存64也不会报错，如果容量不够会自动进行扩展，扩展时容量翻倍：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">ensureCapacity</span><span class="params">(<span class="keyword">int</span> wordsRequired)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (words.length &lt; wordsRequired) &#123;</div><div class="line">        <span class="comment">// Allocate larger of doubled size or required size</span></div><div class="line">        <span class="keyword">int</span> request = Math.max(<span class="number">2</span> * words.length, wordsRequired);</div><div class="line">        words = Arrays.copyOf(words, request);</div><div class="line">        sizeIsSticky = <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>存储一个数时，将对应的索引位置1，使用<code>set</code>方法：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">(<span class="keyword">int</span> bitIndex)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (bitIndex &lt; <span class="number">0</span>)</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IndexOutOfBoundsException(<span class="string">"bitIndex &lt; 0: "</span> + bitIndex);</div><div class="line"></div><div class="line">    <span class="keyword">int</span> wordIndex = wordIndex(bitIndex);</div><div class="line">    expandTo(wordIndex);</div><div class="line"></div><div class="line">    words[wordIndex] |= (<span class="number">1L</span> &lt;&lt; bitIndex); <span class="comment">// Restores invariants</span></div><div class="line"></div><div class="line">    checkInvariants();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>BitSet还提供了一些好用的方法：</p>
+<ul>
+<li><code>与</code>、<code>或</code>、<code>异或</code>的操作。</li>
+<li>提供BitSet对象持久化读写的操作。</li>
+<li>提供一个<code>stream()</code>方法，方便函数式编程。</li>
+</ul>
 
-      <h2 class="post-title">
+      
+    </div>
+
+    <div>
+      
         
-            <a class="post-title-link" href="/2017/04/05/vagrant配置/" itemprop="url">
-              
-                <span itemprop="name">vagrant配置</span>
-              
-            </a>
+
+      
+    </div>
+
+    <div>
+      
         
-      </h2>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-04-05T21:40:44+08:00"
-              content="2017-04-05" >
-          04-05
-        </time>
-      </div>
+      
+    </div>
 
-    </header>
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JDK源码/" rel="tag"># JDK源码</a>
+          
+            <a href="/tags/java/" rel="tag"># java</a>
+          
+            <a href="/tags/BitSet/" rel="tag"># BitSet</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/01/Base64/" rel="next" title="Base64">
+                <i class="fa fa-chevron-left"></i> Base64
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </article>
 
 
-    
-  </div>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -350,6 +512,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -369,8 +535,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="https://avatars0.githubusercontent.com/u/6406175?v=3&s=460"
@@ -452,6 +627,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#BitSet-介绍"><span class="nav-number">1.</span> <span class="nav-text">BitSet 介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基本原理"><span class="nav-number">2.</span> <span class="nav-text">基本原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BitSet源码分析"><span class="nav-number">3.</span> <span class="nav-text">BitSet源码分析</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -554,6 +745,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
 
   
 

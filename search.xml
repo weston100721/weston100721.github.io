@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[BitSet]]></title>
+    <url>%2F2017%2F07%2F03%2FBitSet%2F</url>
+    <content type="text"><![CDATA[听说百度曾经出过这样一道题： 有一千万个随机数，每个随机数的范围在0到1亿之间，现在要求写出一种算法，将1到1亿之间没有在随机数中的数求出来？ 我们先不管百度有没有出过这样的面试题，反正我是在网上看到的。对于这个问题，如果不考虑性能和内存问题，那逻辑非常简单。反之，就需要用到今天介绍的java.util.BitSet。 BitSet 介绍该类实现了一个按需增长的位向量。每个bit值为一个布尔值(true/false)，用非负的整数将BitSet的每个bit位编入索引。可以对每个编入索引的位进行测试、设置或者清除。通过逻辑与、逻辑或和逻辑异或操作，可以使用一个BitSet修改另一个BitSet的内容。BitSet不是线程安全的。 基本原理先用伪代码来举个例子：假设有这样一种类型bit，那么8个bit占用一个字节。现在我们要存储(1, 4, 5，7)这四个int类型的数，那么我们需要 4 * 8字节。但是可以bit的方式，伪代码如下：12345678910111213141516bit[] store = new bit[7+1]; // (1)bit[1] = 1;bit[4] = 1;bit[5] = 1;bit[7] = 1;// 获取public List&lt;Integer&gt; getResult()&#123; List&lt;Integer&gt; result = new ArrayList(); for(int i = 0; i &lt;= store.length; i++)&#123; if(bit[i] == 1)&#123; result.add(i); &#125; &#125; return result;&#125; 上面步骤(1)中存储四个数仅用了一个字节，使用的内存是原来 1/32。然而，在Java语言中并没有这种类型，但是java.util.BitSet却使用long型完成了同样的事情。 BitSet源码分析BitSet真正存储数据的地方：1234/** * The internal field corresponding to the serialField "bits". */private long[] words; 一个long型的数据占八个字节，共64位。所以当long[] words的长度为1时，只能存储的最大数为63；为2时，只能存储的最大数为127；以此类推。所以你就能明白以下代码：123private final static int ADDRESS_BITS_PER_WORD = 6;private final static int BITS_PER_WORD = 1 &lt;&lt; ADDRESS_BITS_PER_WORD;private final static int BIT_INDEX_MASK = BITS_PER_WORD - 1; 创建一个BitSet的默认大小为一个long[] words = new long[1]，也就是说只能存0到63。1234567/** * Creates a new bit set. All bits are initially &#123;@code false&#125;. */public BitSet() &#123; initWords(64); sizeIsSticky = false;&#125; 当然如果存64也不会报错，如果容量不够会自动进行扩展，扩展时容量翻倍：12345678private void ensureCapacity(int wordsRequired) &#123; if (words.length &lt; wordsRequired) &#123; // Allocate larger of doubled size or required size int request = Math.max(2 * words.length, wordsRequired); words = Arrays.copyOf(words, request); sizeIsSticky = false; &#125;&#125; 存储一个数时，将对应的索引位置1，使用set方法：1234567891011public void set(int bitIndex) &#123; if (bitIndex &lt; 0) throw new IndexOutOfBoundsException("bitIndex &lt; 0: " + bitIndex); int wordIndex = wordIndex(bitIndex); expandTo(wordIndex); words[wordIndex] |= (1L &lt;&lt; bitIndex); // Restores invariants checkInvariants();&#125; BitSet还提供了一些好用的方法： 与、或、异或的操作。 提供BitSet对象持久化读写的操作。 提供一个stream()方法，方便函数式编程。]]></content>
+      <categories>
+        <category>tech</category>
+      </categories>
+      <tags>
+        <tag>JDK源码</tag>
+        <tag>java</tag>
+        <tag>BitSet</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Base64]]></title>
     <url>%2F2017%2F07%2F01%2FBase64%2F</url>
     <content type="text"><![CDATA[Base64是种编码和解码的规则，用64个字符来表示任意二进制数据的方法。将ASCII码中可见字符、不可见字符及控制字符等编码成可见字符。在网络上交换数据时，数据往往要经过多个路由设备，由于不同的设备对字符的处理方式有一些不同，这样那些不可见字符就有可能被处理错误，不利于传输。根证书，一般都是作Base64编码的，因为它要在网上被许多人下载。电子邮件的附件一般也作Base64编码的，因为一个附件数据往往是有不可见字符的。数据传递时有时采用json格式，当需要传递二进制数据（图片、PDF等）时，也可以用到。 编码原理准备一个包含64个字符的数组：12345678private static final char[] toBase64 = &#123; 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '/'&#125;; 由于标准的Base64编码后可能出现字符+和/，在URL中就不能直接作为参数，所以又有一种 url safe 的base64编码，其实就是把字符+和/分别变成-和_： 1234567private static final char[] toBase64URL = &#123; 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-', '_'&#125;; 编码 对二进制数据进行处理，每3个字节一组，一共是3x8=24bit： 1234567812345678123456788 bit8 bit8 bit6 bit6 bit6 bit6 bit 如果最末尾一组不足三个字节，最后会剩下1个或2个字节怎么办？Base64用\x00字节在末尾补足后，再在编码的末尾加上1个或2个=号，表示补了多少字节，解码的时候，会自动去掉。 然后将每个bit组（6 bit）转化为对应的字符，对应的字符值可依据下表： 举例字节数是三的倍数，如字符串zlk，Base64编码后为emxr，其转化流程如下： zlk01111010011011000110101101111010011011000110101101111010011011000110101130384943emxr 字节数不是三的倍数，如字符zl，Base64编码后为emw=，其转化流程如下： zl01111010011011000111101001101100xxxxxxxx0111101001101100xxxxxxxx011110100110110000xxxxxx303848=emw=]]></content>
@@ -71,8 +84,8 @@
         <category>tech</category>
       </categories>
       <tags>
-        <tag>常用命令</tag>
         <tag>linux</tag>
+        <tag>常用命令</tag>
       </tags>
   </entry>
   <entry>
